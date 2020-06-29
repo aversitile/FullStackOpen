@@ -7,14 +7,22 @@ const Button = (props) => (
   </button>
 )
 
-const Statistics = ({ good, neutral, bad }) => (
+const Statistics = ({ good, neutral, bad }) => {
+  
+  const avg = (good - bad) / (good + bad + neutral)
+  const pctPos = (good / (good + bad + neutral) * 100)
+
+  return(
   <div> 
     <h1>statistics</h1>
     <p>good {good}</p>
     <p>neutral {neutral}</p>
     <p>bad {bad}</p>
+    <p>average {avg}</p>
+    <p>positive {pctPos}%</p>
   </div>
-)
+  )
+}
 
 const App = () => {
   // save clicks of each button to own state
