@@ -11,14 +11,18 @@ const Statistic = ({text, value, pct}) => {
   if (pct === 1) {
     return (
       <div>
-        {text} {value} %
+         
+          <td>{text}</td> <td>{value}%</td>
+        
       </div>
     )
   }
 
   return (
     <div>
-      {text} {value}
+       
+          <td>{text}</td> <td>{value}</td>
+        
     </div>
   )
 }
@@ -36,15 +40,31 @@ const Statistics = ({ good, neutral, bad }) => {
       </div>
     )
   }
-
+/*
   return(
   <div> 
     <h1>statistics</h1>
-    <Statistic text="good" value={good}/>
-    <Statistic text="neutral" value={neutral}/>
-    <Statistic text="bad" value={bad}/>
-    <Statistic text="average" value={avg}/>
-    <Statistic text="positive" value={pctPos} pct={1}/>
+    <table>
+    <tr><Statistic text="good" value={good}/></tr>
+    <tr><Statistic text="neutral" value={neutral}/></tr>
+    <tr><Statistic text="bad" value={bad}/></tr>
+    <tr><Statistic text="average" value={avg}/></tr>
+    <tr><Statistic text="positive" value={pctPos} pct={1}/></tr>
+    </table>
+  </div>
+  )
+  */
+
+  return(
+    <div> 
+    <h1>statistics</h1>
+    <table>
+    <tr><td>neutral</td><td>{neutral}</td></tr>
+    <tr><td>bad</td><td>{bad}</td></tr>
+    <tr><td>good</td><td>{good}</td></tr>
+    <tr><td>average</td><td>{avg}</td></tr>
+    <tr><td>positive</td><td>{pctPos}%</td></tr>
+    </table>
   </div>
   )
 }
