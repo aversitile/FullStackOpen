@@ -2,7 +2,7 @@ import React from 'react'
 import Country from './Country'
 import CountryDetail from './CountryDetail'
 
-const Countries = ({countries, filter}) => {
+const Countries = ({countries, filter, set}) => {
 
     const filtered = (filter === '')
     ? countries
@@ -25,7 +25,7 @@ const Countries = ({countries, filter}) => {
     return (
         <ul>
             {filtered.map((country, index) =>
-                <Country country={country} key={index}/>
+                <Country country={country} key={index} set={set}/>
                 )}
         </ul>
     )

@@ -31,7 +31,7 @@ const App = () => {
         onChange={handleSearchChange}
         />
       </form>
-      {<Countries countries={countries} filter={newSearch}/>}
+      {<Countries countries={countries} filter={newSearch} set={setNewSearch}/>}
     </div>
   )
 }
