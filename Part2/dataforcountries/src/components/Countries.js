@@ -15,6 +15,7 @@ const Countries = ({countries, filter, set}) => {
     }
 
     if (filtered.length === 1) {
+        //set(filtered[0].name)
         return (
             <div>
                 <CountryDetail country={filtered[0]}/>
