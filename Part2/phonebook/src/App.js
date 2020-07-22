@@ -41,7 +41,6 @@ const App = () => {
     const nameObj = { 
       name: newName,
       number: newNumber,
-      id: newName
     }
 
     personsService
@@ -50,9 +49,21 @@ const App = () => {
       setPersons(persons.concat(returnedPerson))
     })
 
+    setNewName('')
+    setNewNumber('')
+
     // setPersons(persons.concat(nameObj))
     // setNewName('')
     // setNewNumber('')
+  }
+
+  const remove = id => {
+    const name = persons.filter(p => p.id === id)[0].name
+    if (window.confirm(`Delete ${name}`)) {
+      personsService
+      .remove(id)
+      setPersons(persons.filter(p => p.id !== id))
+    }
   }
 
 
@@ -89,7 +100,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <Persons persons={persons} filter={filter}/>
+      <Persons persons={persons} filter={filter} remove={remove}/>
     </div>
   )
 }

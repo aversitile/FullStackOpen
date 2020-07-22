@@ -1,7 +1,7 @@
 import React from 'react'
 import Person from './Person'
 
-const Persons = ({ persons, filter }) => {
+const Persons = ({ persons, filter, remove }) => {
 
     const filtered = (filter === '')
     ? persons
@@ -10,7 +10,7 @@ const Persons = ({ persons, filter }) => {
   return (  
     <ul>
         {filtered.map(person => 
-          <Person key={person.name} person={person}/>
+          <Person person={person} key = {person.id} remove={() => remove(person.id)}/>
         )}
     </ul>
   )}
