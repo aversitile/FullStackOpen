@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Persons from './components/Persons'
 import axios from 'axios'
+import personsService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -12,15 +13,14 @@ const App = () => {
   const [ filter, setFilter ] = useState('')
 
   useEffect(() => {
-    console.log('effect')
+    console.log('initial effect')
     axios
       .get('http://localhost:3001/persons')
       .then(response => {
-        console.log('promise fulfilled')
+        console.log('initial promise fulfilled')
         setPersons(response.data)
       })
   }, [])
-  console.log('render', persons.length, 'people')
 
   const addName = (event) => {
     event.preventDefault()
@@ -44,9 +44,15 @@ const App = () => {
       id: newName
     }
 
-    setPersons(persons.concat(nameObj))
-    setNewName('')
-    setNewNumber('')
+    personsService
+    .add(nameObj)
+    .then(returnedPerson => {
+      setPersons(persons.concat(returnedPerson))
+    })
+
+    // setPersons(persons.concat(nameObj))
+    // setNewName('')
+    // setNewNumber('')
   }
 
 
