@@ -25,6 +25,10 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
     //if new name is already ther alert
+    const nameObj = { 
+      name: newName,
+      number: newNumber,
+    }
 
     var isCopy = persons.reduce(function(sum, person) {
       if (newName === person.name) {
@@ -34,14 +38,19 @@ const App = () => {
     }, 0)
 
     if (isCopy >= 1) {
-      alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} is already added to phonebook, 
+      replace old number with new one?`)) {
+        const id = persons.find(p => p.name === newName).id
+        personsService
+        .update(id, nameObj)
+        .then(returnedPerson => {
+          setPersons(persons.map(p => p.id !== id ? p : returnedPerson))
+        })
+      }
       return
     }
 
-    const nameObj = { 
-      name: newName,
-      number: newNumber,
-    }
+    
 
     personsService
     .add(nameObj)
