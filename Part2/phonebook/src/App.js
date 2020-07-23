@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 import axios from 'axios'
 import personsService from './services/persons'
 
@@ -11,6 +12,9 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
 
   const [ filter, setFilter ] = useState('')
+
+  const [ notification, setNotification ] = useState(null)
+  const [ notificationType, setNotificationType] = useState("success")
 
   useEffect(() => {
     console.log('initial effect')
@@ -45,6 +49,18 @@ const App = () => {
         .update(id, nameObj)
         .then(returnedPerson => {
           setPersons(persons.map(p => p.id !== id ? p : returnedPerson))
+          setNotification(`Changed number for ${returnedPerson.name}`)
+          setNotificationType("success")
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000) 
+        })
+        .catch(error => {
+          setNotification(`${newName} has already been removed from the server`)
+          setNotificationType("error")
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
         })
       }
       return
@@ -56,14 +72,16 @@ const App = () => {
     .add(nameObj)
     .then(returnedPerson => {
       setPersons(persons.concat(returnedPerson))
+      setNotification(`Added ${returnedPerson.name}`)
+      setNotificationType("success")
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
     })
 
     setNewName('')
     setNewNumber('')
 
-    // setPersons(persons.concat(nameObj))
-    // setNewName('')
-    // setNewNumber('')
   }
 
   const remove = id => {
@@ -72,6 +90,11 @@ const App = () => {
       personsService
       .remove(id)
       setPersons(persons.filter(p => p.id !== id))
+      setNotification(`Deleted ${name}`)
+      setNotificationType("success")
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
     }
   }
 
@@ -97,6 +120,8 @@ const App = () => {
           filter shown with <input value={filter} onChange={handleFilterChange}/>
         </div>
       <h2>add a new</h2>
+      <Notification message={notification} type={notificationType} />
+
       <form onSubmit={addName}>
         <div>
           name: <input value={newName} onChange={handleNameChange}/>
